@@ -1,13 +1,13 @@
-package com.example.counselProject;
+package com.example.counsel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CounselProjectApplication {
+public class CounselApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CounselProjectApplication.class, args);
+		SpringApplication.run(CounselApplication.class, args);
 	}
 
 }
