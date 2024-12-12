@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0; /* 기본 마진 제거 */
+    background-color: #f0f0f0;
+}
+
+.popup {
+    background: white;
+    border: 1px solid #e0e0e0;
+    padding: 50px;
+    width: 1200px; /* 너비 조정 */
+    margin-bottom: 15px; /* 버튼과의 간격을 위해 여백 추가 */
+}
+
+
+.input-container {
+    text-align: center;
+    position: relative;
+    margin-bottom: 0; /* 입력 필드 사이 여백 제거 */
+}
+
+.input-container i {
+    position: absolute;
+    left: 247px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+}
+
+.popup input {
+    width: calc(60% - 40px); /* 아이콘을 고려한 너비 */
+    padding: 10px 10px 10px 30px; /* 왼쪽 여백을 추가 */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.signup-button {
+    margin: 20px 240px 20px;
+    width: 60%; /* 팝업 너비와 동일하게 설정 */
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.signup-button:hover {
+    background-color: #222;
+}
+
+.signup-button:disabled {
+    background-color: #ccc; /* Style for disabled state */
+    cursor: not-allowed;
+}
