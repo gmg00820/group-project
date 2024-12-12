@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 메인 홈페이지</title>
+    <link rel="stylesheet" href="css/community.css"> <!-- CSS 파일 링크 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div>
+                <a href="#" onclick="window.location.href='mypage.html'"><i class="fa-solid fa-house"></i> &nbsp;마이페이지</a>
+                <a href="#" onclick="window.location.href='login.html'"> <i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; 로그인</a>
+            </div>
+        </header>
+        <nav>
+            <h1 onclick="window.location.href='main.html'">학생통합상담센터</h1>
+            <a href="#" onclick="window.location.href='center.html'">센터 소개</a>
+            <a href="#" onclick="window.location.href='advice-person.html'">개인 상담</a>
+            <a href="#" onclick="window.location.href='program-peer.html'">프로그램</a>
+            <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
+        </nav>
+        <div class="container-banner">
+            <img src="https://via.placeholder.com/1920x200" alt="1920x200 Placeholder 이미지">
+        </div>
+        <h2>커뮤니티</h2>
+        <div class="container">
+            <div class="sidebar">
+                <button class="sidebar-button" onclick="window.location.href='community-notice.html'">공지 사항</button>
+                <button class="sidebar-button" onclick="window.location.href='community-board.html'">자유게시판</button>
+                <button class="sidebar-button" onclick="window.location.href='community-introduce.html'">상담사 소개</button>
+            </div> 
+            <div class="title-container">
+                <div class="home"> HOME 커뮤니티 > 자유게시판</div>
+                <h1>자유게시판</h1>
+                <div class="search-bar">
+                    <select class="category-select">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="author">작성자</option>
+                    </select>
+                    <input type="text" placeholder="검색어 입력" class="search-input">
+                    <button class="search-button">검색</button>
+                </div>
+    
+                <table class="post-table">
+                    <thead>
+                        <tr>
+                            <th>카테고리</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                            <th>첨부파일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>자유</td>
+                            <td><a href="#">게시글 제목 1</a></td>
+                            <td>홍길동</td>
+                            <td>2024-12-01</td>
+                            <td>100</td>
+                            <td><a href="#">첨부파일1.jpg</a></td>
+                        </tr>
+                        <tr>
+                            <td>자유</td>
+                            <td><a href="#">게시글 제목 2</a></td>
+                            <td>김철수</td>
+                            <td>2024-12-02</td>
+                            <td>150</td>
+                            <td><a href="#">첨부파일2.png</a></td>
+                        </tr>
+                        <tr>
+                            <td>자유</td>
+                            <td><a href="#">게시글 제목 3</a></td>
+                            <td>이영희</td>
+                            <td>2024-12-02</td>
+                            <td>200</td>
+                            <td><a href="#">첨부파일3.pdf</a></td>
+                        </tr>
+                        <!-- 추가 게시글은 여기에 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>
+            <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
+        </p>
+    </footer>
+</body>
+</html>
