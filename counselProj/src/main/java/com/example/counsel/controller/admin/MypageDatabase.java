@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MypageDatabase {
-    private static final String URL = "jdbc:mysql://localhost:3306/STDNT_INFO"; // 데이터베이스 URL
+    private static final String URL = "jdbc:mysql://localhost:3306/stdnt_info"; // 데이터베이스 URL
     private static final String USER = "root"; // 사용자 이름
     private static final String PASSWORD = "wls0264"; // 비밀번호
     private Connection connection;

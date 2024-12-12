@@ -10,9 +10,7 @@ public class CounselApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CounselApplication.class, args);
 	}
-	@GetMapping("/hello")
-	public String hello() {
-		return "Hello, World!";
-	}
+
+
 }
 

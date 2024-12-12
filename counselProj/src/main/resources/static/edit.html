@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/user/update-info" method="post">
+    <input type="hidden" name="userId" value="1">
+    <label>이메일: <input type="email" name="email" value="[[${user.email}]]"></label><br>
+    <label>연락처: <input type="text" name="contact" value="[[${user.contact}]]"></label><br>
+    <label>주소: <input type="text" name="address" value="[[${user.address}]]"></label><br>
+    <button type="submit">수정하기</button>
+</form>
+
+</body>
+</html>
