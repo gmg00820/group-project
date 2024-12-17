@@ -1,0 +1,92 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="p-5 mb-5 text-center bg-light">
+    <h1 class = "mb-3">My Blog</h1>
+    <h4 class="mb-3">공지사항</h4>
+</div>
+
+<div class="container">
+    <div class="row-6" th:each="item : ${posts}">
+        <div class="card">
+            <div class="card-header" th:text="${item.pstId}"></div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${item.pstTtl}"></h5>
+                <p class="card-text" th:text="${item.pstCn}"></p>
+                <a href="#" class="btn btn-primary">보러 가기</a>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+</body>
+</html>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Post List</title>-->
+<!--    <style>-->
+<!--        table {-->
+<!--            width: 80%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin: 20px auto;-->
+<!--        }-->
+<!--        th, td {-->
+<!--            border: 1px solid #ddd;-->
+<!--            padding: 10px;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        th {-->
+<!--            background-color: #f2f2f2;-->
+<!--        }-->
+<!--        tr:hover {-->
+<!--            background-color: #f5f5f5;-->
+<!--        }-->
+<!--    </style>-->
+<!--    <script>-->
+<!--        window.onload = function() {-->
+<!--            fetch("/api/posts") // REST API 호출-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const tableBody = document.getElementById("post-table-body");-->
+<!--                    data.forEach(post => {-->
+<!--                        const row = `<tr>-->
+<!--                            <td>${post.pstId}</td>-->
+<!--                            <td>${post.pstTtl}</td>-->
+<!--                            <td>${post.pstCn}</td>-->
+<!--                            <td>${post.wrtNm}</td>-->
+<!--                            <td>${post.pstWrtDt}</td>-->
+<!--                            <td>${post.pstMdfcnDt}</td>-->
+<!--                        </tr>`;-->
+<!--                        tableBody.innerHTML += row;-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => console.error("Error loading posts:", error));-->
+<!--        };-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2 style="text-align: center;">Post List</h2>-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Post ID</th>-->
+<!--        <th>Title</th>-->
+<!--        <th>Content</th>-->
+<!--        <th>Writer</th>-->
+<!--        <th>Written Date</th>-->
+<!--        <th>Modified Date</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody id="post-table-body">-->
+<!--    &lt;!&ndash; JavaScript를 통해 데이터가 여기에 채워집니다 &ndash;&gt;-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
