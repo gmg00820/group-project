@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .formLogin(auth -> auth
                         .loginPage("/login")
                         .loginProcessingUrl("/loginProc")
-                        .defaultSuccessUrl("/mypage", true)
+                        .defaultSuccessUrl("/main", true) // 로그인 성공 시 main 페이지로 이동
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )

@@ -1,23 +1,19 @@
 package com.example.project.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Setter
-@Getter
 public class UpdateUserDTO {
-    private String newPassword;
+    private String password;
     private String email;
-    private String phoneNumber;
     private String address;
+    private String phoneNumber;
 
     // Getters and Setters
-    public String getNewPassword() {
-        return newPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -28,19 +24,19 @@ public class UpdateUserDTO {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
