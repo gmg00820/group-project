@@ -4,12 +4,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 
+
 import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "your-secret-key"; // 안전하게 관리할 것
+    private final String SECRET_KEY = "mySecretKey"; // 안전하게 관리할 것
 
     public String generateToken(String username) {
         return Jwts.builder()
