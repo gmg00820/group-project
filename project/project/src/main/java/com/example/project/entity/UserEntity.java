@@ -38,6 +38,16 @@ public class UserEntity {
     @Column(name = "REFRESH_TOKEN")
     private String refreshToken;
 
+    // 추가된 개인정보 필드
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+
+    @Column(name = "ADDRESS")
+    private String address;
+
     // Getters and Setters
     public String getUserNo() {
         return userNo;
@@ -117,5 +127,29 @@ public class UserEntity {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
