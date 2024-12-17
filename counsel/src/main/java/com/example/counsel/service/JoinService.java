@@ -4,7 +4,7 @@ import com.example.counsel.dto.JoinDTO;
 import com.example.counsel.entity.UserEntity;
 import com.example.counsel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,26 +14,13 @@ public class JoinService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private PasswordEncoder bCryptPasswordEncoder; // PasswordEncoder 타입으로 변경
 
     public void joinProcess(JoinDTO joinDTO) {
-
-
-        //db에 이미 동일한 username을 가진 회원이 존재하는지?
-        boolean isUser = userRepository.existsByUsername(joinDTO.getUsername());
-        if (isUser) {
-            throw new IllegalStateException("이미 존재하는 사용자입니다.");
-        }
-
-
-        UserEntity data = new UserEntity();
-
-        data.setUsername(joinDTO.getUsername());
-        data.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword()));
-        data.setRole("ROLE_USER");
-
-
-        userRepository.save(data);
+        UserEntity user = new UserEntity();
+        user.setUsername(joinDTO.getUsername());
+        user.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword())); // 비밀번호 암호화
+        user.setRole("ROLE_USER");
+        userRepository.save(user);
     }
 }

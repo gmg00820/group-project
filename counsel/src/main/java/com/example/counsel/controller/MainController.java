@@ -8,30 +8,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 @Controller
 public class MainController {
 
     @GetMapping("/")
     public String mainP(Model model) {
-
-        String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
-
+        // 현재 인증된 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
+        // 사용자의 권한 정보 가져오기
+        String role = null;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
+        if (!authorities.isEmpty()) {
+            role = authorities.iterator().next().getAuthority();
+        }
 
-        model.addAttribute("id",id);
-        model.addAttribute("role",role);
-        model.addAttribute("username", username);
+        // 모델에 사용자 정보 추가
+        model.addAttribute("id", username);  // 사용자의 ID (username)
+        model.addAttribute("role", role);    // 사용자 권한 (role)
+        model.addAttribute("username", username);  // 사용자명 (username)
 
-
+        // main 페이지 반환
         return "main";
     }
 }
