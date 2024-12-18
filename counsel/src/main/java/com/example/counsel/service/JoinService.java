@@ -20,6 +20,9 @@ public class JoinService {
         UserEntity user = new UserEntity();
         user.setUsername(joinDTO.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword())); // 비밀번호 암호화
+        user.setEmail(joinDTO.getEmail());
+        user.setName(joinDTO.getName());
+        user.setPhone(joinDTO.getPhone());
         user.setRole("ROLE_USER");
         userRepository.save(user);
     }
