@@ -10,6 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -32,9 +36,28 @@ public class SecurityConfig {
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
-        hierarchy.setHierarchy("ROLE_C > ROLE_B\n" +
-                "ROLE_B > ROLE_A");
+        hierarchy.setHierarchy("""
+            ROLE_ADMIN > ROLE_C
+            ROLE_C > ROLE_B
+            ROLE_B > ROLE_A
+            """);
         return hierarchy;
+    }
+
+    // 테스트용 관리자 및 사용자 계정 설정
+    @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+        UserDetails admin = User.withUsername("admin")
+                .password(encoder.encode("admin123")) // 관리자 비밀번호
+                .roles("ADMIN") // 관리자 권한
+                .build();
+
+        UserDetails user = User.withUsername("user")
+                .password(encoder.encode("user123")) // 사용자 비밀번호
+                .roles("A") // 일반 사용자 권한
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, user);
     }
 
     // 시큐리티 설정
@@ -43,8 +66,9 @@ public class SecurityConfig {
         http
                 // URL 접근 권한 설정
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/join", "/joinProc", "/oauth2/**","/reset-password", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/").authenticated() // 메인 페이지는 인증된 사용자만 접근 가능
+                        .requestMatchers("/login", "/join", "/joinProc", "/oauth2/**", "/reset-password", "/css/**", "/js/**","/admin/login").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자 페이지 접근 권한 설정
+                        .requestMatchers("/").authenticated()          // 메인 페이지는 인증된 사용자만 접근 가능
                         .anyRequest().authenticated()
                 )
 
@@ -55,6 +79,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/", true)     // 로그인 성공 시 메인 페이지로 이동
                         .permitAll()
                 )
+
 
                 // OAuth2 로그인 설정
                 .oauth2Login((oauth2) -> oauth2
