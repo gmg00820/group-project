@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +15,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
@@ -37,9 +34,7 @@ public class SecurityConfig {
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
         hierarchy.setHierarchy("""
-            ROLE_ADMIN > ROLE_C
-            ROLE_C > ROLE_B
-            ROLE_B > ROLE_A
+            ROLE_ADMIN > ROLE_USER
             """);
         return hierarchy;
     }
@@ -54,63 +49,58 @@ public class SecurityConfig {
 
         UserDetails user = User.withUsername("user")
                 .password(encoder.encode("user123")) // 사용자 비밀번호
-                .roles("A") // 일반 사용자 권한
+                .roles("USER") // 일반 사용자 권한
                 .build();
 
         return new InMemoryUserDetailsManager(admin, user);
     }
 
-    // 시큐리티 설정
+    // 일반 사용자용 Security 설정
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                // URL 접근 권한 설정
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/join", "/joinProc", "/oauth2/**", "/reset-password", "/css/**", "/js/**","/admin/login").permitAll()
-                        .requestMatchers("/admin/**","admin/admin-main").hasRole("ADMIN") // 관리자 페이지 접근 권한 설정
-                        .requestMatchers("/").authenticated()          // 메인 페이지는 인증된 사용자만 접근 가능
-                        .anyRequest().authenticated()
+                .securityMatcher("/login/**", "/usermain/**") // 일반 유저 관련 URL 처리
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/loginProc").permitAll() // 로그인 관련 URL 허용
+                        .anyRequest().hasRole("USER") // 유저 메인 페이지 접근은 USER 권한 필요
                 )
-
-                // 일반 로그인 설정
-                .formLogin((auth) -> auth
-                        .loginPage("/login")              // 사용자 정의 로그인 페이지
-                        .loginProcessingUrl("/loginProc") // 로그인 처리 URL
-                        .defaultSuccessUrl("/", true)     // 로그인 성공 시 메인 페이지로 이동
+                .formLogin(auth -> auth
+                        .loginPage("/login")                 // 일반 유저 로그인 페이지
+                        .loginProcessingUrl("/loginProc")    // 일반 유저 로그인 처리 URL
+                        .defaultSuccessUrl("/usermain", true) // 로그인 성공 후 유저 메인 페이지로 이동
                         .permitAll()
                 )
-
-
-                // OAuth2 로그인 설정
-                .oauth2Login((oauth2) -> oauth2
-                        .loginPage("/login")  // 소셜 로그인 페이지
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService) // 사용자 서비스 설정
-                        )
-                )
-
-                // 로그아웃 설정
-                .logout((auth) -> auth
+                .logout(auth -> auth
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/login")
                         .permitAll()
                 )
+                .csrf(csrf -> csrf.disable()); // 필요시 활성화 가능
+        return http.build();
+    }
 
-                // CSRF 비활성화
-                .csrf((auth) -> auth.disable())
-
-                // HTTP Basic 비활성화
-                .httpBasic(Customizer.withDefaults())
-
-                // 세션 관리 설정
-                .sessionManagement((auth) -> auth
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true)
+    // 관리자용 Security 설정
+    @Bean
+    public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/admin/**") // 관리자 관련 URL 처리
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/login", "/admin/loginProc").permitAll() // 로그인 관련 URL 허용
+                        .anyRequest().hasRole("ADMIN") // 관리자 메인 페이지 접근은 ADMIN 권한 필요
                 )
-                .sessionManagement((auth) -> auth
-                        .sessionFixation().changeSessionId()
-                );
-
+                .formLogin(auth -> auth
+                        .loginPage("/admin/login")            // 관리자 로그인 페이지
+                        .loginProcessingUrl("/admin/loginProc") // 관리자 로그인 처리 URL
+                        .defaultSuccessUrl("/adminmain", true) // 로그인 성공 후 관리자 메인 페이지로 이동
+                        .permitAll()
+                )
+                .logout(auth -> auth
+                        .logoutUrl("/admin/logout")
+                        .logoutSuccessUrl("/admin/login")
+                        .permitAll()
+                )
+                .csrf(csrf -> csrf.disable()); // 필요시 활성화 가능
         return http.build();
     }
 }
+
