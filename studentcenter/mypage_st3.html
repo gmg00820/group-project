@@ -81,12 +81,65 @@
             </div>
         </div>
     </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content"> 
+           <h3>프로그램을 평가 해주세요!</h3>
+           <div class="header">
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1">★</label>
+                </div>
+                <p id="rating-result">0/5</p>
+                <a> 본 프로그램에서 개선해야할 사항이나 추가해야할 내용, 좋았던 점등을 자유롭게 적어주세요.</a>
+                    <textarea class="text" rows="5" style="width: 100%; resize: vertical; overflow-y: auto;"></textarea>
+                <button onclick="">등록하기</button><button onclick="">취소</button>
+            </div>
+        </div>
+    </div>
+
+
+
     <footer>
         <p>
             <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
         </p>
     </footer>
 
+    <script>
+        function openModal() {
+            document.getElementById("myModal").style.display = "block"; // 모달 열기
+        }
 
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none"; // 모달 닫기
+        }
+
+        // 모달 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById("myModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        const ratingInputs = document.querySelectorAll('.rating input');
+        const ratingResult = document.getElementById('rating-result');
+
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                ratingResult.textContent = `${input.value}/5`;
+            });
+        });
+        
+    </script>
 </body>
 </html>

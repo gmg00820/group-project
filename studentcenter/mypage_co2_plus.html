@@ -40,25 +40,52 @@
         
         <div class="container">
             <div class="title-container">
-                프로그램 등록<input type="text" class="text">
-            <div class="main-content">
+                <div class="title">프로그램 등록</div>
+                <input type="text" class="title-name" placeholder="제목을 입력하세요" style="width: 100%; margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <textarea class="text" rows="5" style="width: 100%; resize: vertical; overflow-y: auto;"></textarea>
+                <div class="button-group">
+                    <button class="plus" onclick="openModal()">일정 등록하기</button>
+                    <label for="input-file" class="custom-file-upload">
+                        파일 선택
+                        <input type="file" id="input-file">
+                    </label>
+                </div>
+                <button class="apply" onclick="location.href='.html'" style="margin-top: 10px;">등록하기</button>
             </div>
-            <button class="plus" onclick="openModal()">일정 등록하기</button>
-            <input type="file" id="input-file">
         </div>
-        <button class="apply" onclick="location.href='.html'">등록하기</button>
+        
     </div>
 
     <!-- 모달 창 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-            <h4> 2024 </h4>
-            <span class="close" onclick="closeModal()">&times;</span>
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="controls">
+                    <button onclick="changeMonth(-1)">이전</button>
+                    <span id="monthYear"></span>
+                    <button onclick="changeMonth(1)">다음</button>
+                </div>
             </div>
-
+            <table id="calendar">
+                <thead>
+                    <tr>
+                        <th>일</th>
+                        <th>월</th>
+                        <th>화</th>
+                        <th>수</th>
+                        <th>목</th>
+                        <th>금</th>
+                        <th>토</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 달력 내용이 여기에 동적으로 추가됩니다. -->
+                </tbody>
+            </table>
         </div>
     </div>
+
     <script>
         function openModal() {
             document.getElementById("myModal").style.display = "block"; // 모달 열기
@@ -75,8 +102,57 @@
                 modal.style.display = "none";
             }
         }
-    </script>
 
+        let currentDate = new Date(2024, 0); // 2024년 1월로 시작
+        const calendarBody = document.querySelector('#calendar tbody');
+        const monthYearDisplay = document.getElementById('monthYear');
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            monthYearDisplay.textContent = `${year}년 ${month + 1}월`;
+
+            // 달력 초기화
+            calendarBody.innerHTML = '';
+
+            // 해당 월의 첫 날과 마지막 날
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startDay = firstDay.getDay();
+
+            // 빈 셀 추가
+            let row = document.createElement('tr');
+            for (let i = 0; i < startDay; i++) {
+                row.appendChild(document.createElement('td'));
+            }
+
+            // 날짜 추가
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('td');
+                cell.textContent = day;
+                row.appendChild(cell);
+
+                // 주의 마지막 날이면 새로운 행 시작
+                if ((startDay + day) % 7 === 0) {
+                    calendarBody.appendChild(row);
+                    row = document.createElement('tr');
+                }
+            }
+
+            // 마지막 행 추가
+            if (row.children.length > 0) {
+                calendarBody.appendChild(row);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        renderCalendar(); // 초기 달력 렌더링
+    </script>
 
     <footer>
         <p>

@@ -71,11 +71,15 @@ nav a {
 
 /* 기존 CSS 코드에 추가 또는 수정 */
 .main-header {
+    position: absolute; /* 이미지 위에 겹치도록 설정 */
+    top: 210px; /* 이미지 안에서 적절히 위치 조정 */
+    z-index: 10; /* 이미지보다 위에 표시되도록 설정 */
     display: flex; /* Flexbox 사용 */
     align-items: center; /* 수직 중앙 정렬 */
     justify-content: center; /* 중앙 정렬 */
     padding: 20px; /* 여백 추가 */
     align-items: flex-end;
+    width: 98%;
 }
 
 .main-header h2 {
@@ -98,15 +102,16 @@ nav a {
 .sidebar + .main-header {
     margin-left: 0; /* 사이드바와 제목 간의 간격을 0으로 설정 */
 }
-
 /* 사이드바 버튼 스타일 */
 .sidebar-button {
-    
+    width: 230px;
+    padding: 20px;
+    margin-left: 10px; /* 버튼 간의 간격 조정 */
     background-color: #eee;
     text-align: left;
     color: #222;
     font-size: 15px;
-    border: 1px solid white;
+    border: 1px solid #eee;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s; /* 색상 변화 추가 */
 }
@@ -167,7 +172,7 @@ nav a {
     display: inline-block;
     font-size: 30px;
     font-weight: bold;
-    padding: 100px 150px; 
+    padding: 100px 240px; 
     background-color: #f2f2f2;
     border-radius: 5px;
 }

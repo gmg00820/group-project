@@ -17,11 +17,16 @@ body {
 
 /* 컨테이너 최대 너비 */
 .container {
-    max-width: 1200px; /* 최대 너비 설정 */
+    max-width: 1200px; /* 최대 너비를 1200px로 확장 */
     margin: 0 auto; /* 중앙 정렬 */
     width: 100%;
+    padding: 30px; /* 내부 여백 */
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
     display: flex; /* Flexbox 사용 */
-    align-items: flex-start; /* 상단 정렬 */
+    flex-direction: column; /* 세로 방향 정렬 */
+    align-items: stretch; /* 자식 요소를 늘려 너비 통일 */
 }
 
 /* 헤더 스타일 */
@@ -69,52 +74,51 @@ nav a {
     font-weight: bold;
 }
 
-/* 기존 CSS 코드에 추가 또는 수정 */
+/* 메인 헤더 */
 .main-header {
-    position: absolute; /* 이미지 위에 겹치도록 설정 */
-    top: 210px; /* 이미지 안에서 적절히 위치 조정 */
-    z-index: 10; /* 이미지보다 위에 표시되도록 설정 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 중앙 정렬 */
-    padding: 20px; /* 여백 추가 */
+    position: absolute;
+    top: 210px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
     align-items: flex-end;
     width: 98%;
 }
 
 .main-header h2 {
-    width: 180px; /* 박스 너비를 180px로 설정 */
+    width: 180px;
     padding: 30px;
-    text-align: center; /* 텍스트 가운데 정렬 */
-    font-size: 28px; /* 폰트 크기 */
+    text-align: center;
+    font-size: 28px;
     color: white;
     background-color: #0078d7;
-    margin: 0; /* 기본 여백 제거 */
+    margin: 0;
 }
 
+/* 사이드바 */
 .sidebar {
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 중앙 정렬 */
-
+    display: flex;
+    align-items: center;
 }
 
-/* 사이드바와 제목 간의 간격을 고정 */
 .sidebar + .main-header {
-    margin-left: 0; /* 사이드바와 제목 간의 간격을 0으로 설정 */
+    margin-left: 0;
 }
 
 /* 사이드바 버튼 스타일 */
 .sidebar-button {
     width: 230px;
     padding: 20px;
-    margin-left: 10px; /* 버튼 간의 간격 조정 */
+    margin-left: 10px;
     background-color: #eee;
     text-align: left;
     color: #222;
     font-size: 15px;
     border: 1px solid #eee;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s; /* 색상 변화 추가 */
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .sidebar-button:nth-child(2) {
@@ -122,56 +126,119 @@ nav a {
     color: #0078d7;
     background-color: white;
 }
-    
+
 .sidebar-button:hover {
-    color: #0078d7; /* 호버 시 텍스트 색상 변경 */
+    color: #0078d7;
 }
 
-/* 컨테이너 스타일 */
-.container {
-    margin-top: 20px;
-    display: flex; /* Flexbox 사용 */
-    align-items: flex-start; /* 상단 정렬 */
-}
-
-/* 나머지 스타일은 그대로 유지 */
-
-.container-banner {
-    margin: 0; /* 기본 여백 제거 */
-    width: fit-content; /* 내용에 맞게 너비 조정 */
-    position: relative; /* 상대 위치 */
-    left: 50%; /* 수평 중앙 */
-    transform: translateX(-50%); /* 중앙 정렬을 위한 이동 */
-}
-
-.container .home {
-    margin-left: 50px;
-    font-size: 13px;
-    text-align: right; 
-}
-
-.main-content table {
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    width: 1200px;
-    margin-bottom: 40px;
-    border-collapse: collapse;
-}
-.main-content th, td {
-    padding: 10px;
-    padding-bottom: 30px;
-    padding-top: 30px;
+/* 타이틀 및 입력 필드 */
+.title-container .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
     text-align: center;
 }
-.main-content th {
-    text-align: center; 
-    background-color: rgb(163, 213, 255);
+
+.title-container input,
+.title-container textarea,
+.title-container .apply {
+    width: 100%;
+    box-sizing: border-box;
 }
-.main-content tr:nth-child(2n+1){
-    background: #f2f2f2;
+
+.title-container input {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
 }
-.main-content i{
-    font-size: 30px;
+
+.title-container textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: black;
+    height: 150px; /* 기본 높이를 늘림 */
+    resize: vertical;
+}
+
+.title-container .apply {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.title-container .apply:hover {
+    background-color: #005bb5;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.button-group button,
+.custom-file-upload {
+    width: 150px;
+    height: 40px;
+    padding: 0 15px;
+    border: 1px solid #0078d7;
+    border-radius: 5px;
+    background-color: white;
+    color: #0078d7;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.custom-file-upload {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+/* 모달 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 40px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px;
 }
 
 /* 푸터 */
@@ -196,32 +263,10 @@ footer a:hover {
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* 세로 방향으로 쌓이도록 변경 */
+        width: 90%;
     }
 
-    .sidebar {
-        width: 100%; /* 사이드바 너비를 100%로 설정 */
-    }
-
-    .main-content {     
-        margin-left: 0; /* 메인 콘텐츠의 왼쪽 여백 제거 */
-        width: 100%; /* 메인 콘텐츠 너비를 100%로 설정 */
-    }
-
-    h2 {
-        margin-left: 0; /* 제목의 왼쪽 여백 제거 */
-        /* 폰트 크기를 조정하지 않음 */
-    }
-
-    header div {
-        margin-left: 5%; /* 모바일에서 여백 조정 */
-    }
-
-    nav h1 {
-        margin-right: 5%; /* 모바일에서 여백 조정 */
-    }
-
-    nav a {
-        margin: 0 20px; /* 모바일에서 링크 간격 조정 */
+    .button-group {
+        justify-content: center;
     }
 }

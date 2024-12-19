@@ -202,12 +202,43 @@ nav a {
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 40px;
 }
 
+.modal-content a{
+    font-size:  14px;
+}
+.modal-content i{
+    padding: 4px;
+    border-radius: 3px;
+    background-color: #0078d7;
+    color: white;
+}
+.modal-content p{
+    font-weight: bold;
+}
+.modal-content .input-form{
+    font-size: 15px;
+    padding : 10px;
+    border-bottom: solid 1px #ccc;
+}
+.radio{
+    padding : 10px;
+}
+.radio label{
+    margin-right : 50px ;
+}
+
+
+.modal-content button{
+    padding : 10px;
+    border : none;
+}
+
+.modal-content button:nth-of-type(1){
+    background-color: #0078d7;
+    color: white;
+}
 /* 푸터 */
 footer {
     background: #333;

@@ -174,6 +174,82 @@ nav a {
     font-size: 30px;
 }
 
+.rating {
+    display: inline-flex;
+    direction: rtl; /* 오른쪽에서 왼쪽으로 정렬 */
+    font-size: 2rem;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none; /* 기본적으로 모달은 숨김 */
+    position: fixed; /* 화면에 고정 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 전체 화면 너비 */
+    height: 100%; /* 전체 화면 높이 */
+    overflow: auto; /* 스크롤 가능 */
+    background-color: rgb(0,0,0); /* 배경색 */
+    background-color: rgba(0,0,0,0.4); /* 투명도 */
+}
+
+/* 모달 콘텐츠 스타일 */
+.modal-content {
+    display: flex;
+    flex-direction: column; /* 세로 방향 정�� */
+    background-color: #fefefe; /* 모달 배경색 */
+    margin: 15% auto; /* 중앙 정렬 */
+    padding: 40px; /* 안쪽 여백 */
+    border: 1px solid #888; /* 테두리 */
+    width: 80%; /* 모달 너비 */
+    max-width: 700px; /* 최대 너비 */
+}
+
+.modal-content .header {
+    text-align: center;
+}
+
+.rating {
+    font-size: 50px;
+    margin-top: 120px;
+    align-items: center;
+    text-align: center;
+}
+.modal-content p{
+    margin-bottom: 120px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.rating input {
+    display: none; /* 라디오 버튼 숨기기 */
+}
+
+.rating label {
+    cursor: pointer;
+    color: #ccc; /* 기본 별 색상 */
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: gold; /* 선택한 별과 그 왼쪽 별 색상 변경 */
+}
+
+.modal-content button{
+    
+    margin-top: 20px;
+    padding : 10px;
+    margin: 1px;
+    border: none;
+}
+
+.modal-content button:nth-of-type(1){
+    background-color: #0078d7;
+    color:white;
+}
+
 
 /* 푸터 */
 footer {
