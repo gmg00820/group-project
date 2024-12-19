@@ -90,9 +90,12 @@
 
 <div class="login-container">
     <h1>관리자 페이지</h1>
-    <input type="text" placeholder="Enter username">
-    <input type="password" placeholder="Enter password">
-    <button>로그인</button>
+    <form action="/admin-main" method="POST">
+        <input type="text" name="username" placeholder="Enter username">
+        <input type="password" name="password" placeholder="Enter password">
+        <button type="submit">로그인</button>
+    </form>
 </div>
+
 </body>
 </html>

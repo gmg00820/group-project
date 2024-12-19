@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CounselApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(CounselApplication.class, args);
     }
 

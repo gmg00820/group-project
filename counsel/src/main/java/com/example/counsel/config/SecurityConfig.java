@@ -67,7 +67,7 @@ public class SecurityConfig {
                 // URL 접근 권한 설정
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login", "/join", "/joinProc", "/oauth2/**", "/reset-password", "/css/**", "/js/**","/admin/login").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자 페이지 접근 권한 설정
+                        .requestMatchers("/admin/**","admin/admin-main").hasRole("ADMIN") // 관리자 페이지 접근 권한 설정
                         .requestMatchers("/").authenticated()          // 메인 페이지는 인증된 사용자만 접근 가능
                         .anyRequest().authenticated()
                 )

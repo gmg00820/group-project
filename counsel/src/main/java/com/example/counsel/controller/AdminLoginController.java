@@ -12,7 +12,7 @@ public class AdminLoginController {
     @GetMapping("/admin/login")
     public String AdminloginPage() {
 
-        return "adminlogin";
+        return "adminlogin"; //관리자 로그인 페이지 반환
     }
 }
 
