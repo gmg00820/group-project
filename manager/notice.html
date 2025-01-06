@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 관리자 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/notice.css">
+</head>
+<body>
+    <nav class="navbar">
+        <span class="menu-icon" id="menu-icon">☰</span>
+        <div class="welcome">
+            관리자님 반갑습니다.
+            <img src="https://via.placeholder.com/40" alt="Admin Icon">
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <h2 href="#" onclick="window.location.href='manager_main.html'">Main</h2>
+        <h5>Inbox</h5>
+        <ul>
+            <li href="#" onclick="window.location.href='user_main.html'"><i class="fas fa-user"></i> 사용자</li>
+            <li><i class="fas fa-star"></i> 즐겨찾기</li>
+            <li><i class="fas fa-trash"></i> 휴지통</li>
+        </ul>
+        <h5>커뮤니티</h5>
+        <ul>
+            <li href="#" onclick="window.location.href='notice.html'"><i class="fas fa-bullhorn"></i> 공지사항</li>
+            <li href="#" onclick="window.location.href='board.html'"><i class="fas fa-comments"></i> 게시판</li>
+        </ul>
+        <h5>사용자 관리</h5>
+        <ul>
+            <li href="#" onclick="window.location.href='user_st.html'"><i class="fas fa-user-graduate"></i> 학생관리</li>
+            <li href="#" onclick="window.location.href='user_co.html'"><i class="fas fa-user-tie"></i> 상담사 관리</li>
+        </ul>
+        <h5>데이터 관리</h5>
+        <ul>
+            <li><i class="fas fa-chart-bar"></i> 상담사별 만족도 결과</li>
+            <li><i class="fas fa-poll"></i> 사전조사 결과</li>
+        </ul>
+        <h5>시스템 사용 통계</h5>
+        <ul>
+            <li><i class="fas fa-list"></i> 상담 종류별 건수 통계</li>
+            <li><i class="fas fa-chart-line"></i> 방문자 통계</li>
+            <li><i class="fas fa-venus-mars"></i> 남녀 성비 통계</li>
+            <li><i class="fas fa-school"></i> 학교별 상담자 통계</li>
+            <li><i class="fas fa-edit"></i> 비교과 프로그램/수정 삭제</li>
+        </ul>
+        <h5>시스템 설정</h5>
+        <ul>
+            <li><i class="fas fa-cogs"></i> 프로그램 관리</li>
+            <li><i class="fas fa-check-circle"></i> 승인관리</li>
+        </ul>
+    </div>
+
+
+    <div class="sidebar" id="sidebar">
+        <h2>공지사항 관리</h2>
+        <ul>
+            <li><i class="fas fa-bullhorn"></i> 공지사항</li>
+            <li><i class="fas fa-comments"></i> 게시판</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <h2>공지사항 관리</h2>
+        <ul>
+            <li><i class="fas fa-bullhorn"></i> 공지사항</li>
+            <li><i class="fas fa-comments"></i> 게시판</li>
+        </ul>
+    </div>
+
+ <!-- 메인 콘텐츠 -->
+ <div class="table-container">
+    <div class="container mt-4">
+        <h3 class="text-center mb-4">공지사항 관리</h3>
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="categorySelect" class="form-label">카테고리</label>
+                <select id="categorySelect" class="form-select">
+                    <option>전체</option>
+                    <option>공지사항</option>
+                    <option>자유 게시판</option>
+                    <option>Q&A</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="statusSelect" class="form-label">상태</label>
+                <select id="statusSelect" class="form-select">
+                    <option>전체</option>
+                    <option>활성</option>
+                    <option>비활성</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="searchInput" class="form-label">검색어</label>
+                <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력">
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button class="btn btn-success w-100" id="createNotice">공지사항 작성</button>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>No</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                    <th>상단고정 여부</th>
+                    <th>수정/삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>시스템 점검 안내</td>
+                    <td>관리자</td>
+                    <td>2024-12-20</td>
+                    <td>123</td>
+                    <td>예</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm">수정</button>
+                        <button class="btn btn-danger btn-sm">삭제</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 모달창 -->
+<div class="modal fade" id="noticeModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">공지사항 작성</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="noticeTitle" class="form-label">제목</label>
+                        <input type="text" class="form-control" id="noticeTitle" placeholder="제목을 입력하세요">
+                    </div>
+                    <div class="mb-3">
+                        <label for="noticeContent" class="form-label">내용</label>
+                        <textarea class="form-control" id="noticeContent" rows="5" placeholder="내용을 입력하세요"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fileUpload" class="form-label">파일 첨부</label>
+                        <input type="file" class="form-control" id="fileUpload">
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="pinned">
+                        <label for="pinned" class="form-check-label">상단 고정</label>
+                    </div>
+                    <button type="submit" class="btn">등록</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        // 모달 열기
+        const createNoticeButton = document.getElementById('createNotice');
+        const noticeModal = new bootstrap.Modal(document.getElementById('noticeModal'));
+
+        createNoticeButton.addEventListener('click', () => {
+            noticeModal.show();
+        });
+
+        // 검색 기능
+        const searchInput = document.getElementById('searchInput');
+        const tableRows = document.querySelectorAll('tbody tr');
+
+        searchInput.addEventListener('keyup', function () {
+            const filter = searchInput.value.toLowerCase();
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+
+        // 사이드바 토글
+        const sidebar = document.getElementById('sidebar');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuIcon.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
