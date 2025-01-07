@@ -23,8 +23,7 @@
             <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
         </nav>
         <div class="container-banner">
-            <img src="https://via.placeholder.com/1920x200" alt="1920x200 Placeholder 이미지">
-        </div>
+        </div>  
         <div class="main-container">
             <div class="main-header">
                 <h2>마이페이지</h2>
@@ -37,146 +36,69 @@
                 </div> 
             </div>
         </div>
-        
         <div class="container">
-            <div class="title-container">
-                <div class="title">프로그램 등록</div>
-                <input type="text" class="title-name" placeholder="제목을 입력하세요" style="width: 100%; margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                <textarea class="text" rows="5" style="width: 100%; resize: vertical; overflow-y: auto;"></textarea>
-                <div class="button-group">
-                    <button class="plus" onclick="openModal()">일정 등록하기</button>
-                    <label for="input-file" class="custom-file-upload">
-                        파일 선택
-                        <input type="file" id="input-file">
-                    </label>
+            <h1>프로그램 등록</h1>
+            <form class="registration-form">
+                <!-- 제목 -->
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" placeholder="제목을 입력하세요">
                 </div>
-                <button class="apply" onclick="location.href='.html'" style="margin-top: 10px;">등록하기</button>
-            </div>
-        </div>
-        
-    </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="controls">
-                    <button onclick="changeMonth(-1)">&#60;</button>
-                    <span id="monthYear"></span>
-                    <button onclick="changeMonth(1)">&#62;</button>
+                <!-- 신청 접수 날짜 -->
+                <div class="form-group">
+                    <label for="start-date">신청 접수 날짜</label>
+                    <div class="date-container">
+                        <input type="date" id="start-date" class="form-control">
+                        <span class="date-separator">~</span>
+                        <input type="date" id="end-date" class="form-control">
+                    </div>
+                </div>
+                
+               
+                <!-- 장소 -->
+                <div class="form-group">
+                    <label for="location">장소</label>
+                    <input type="text" id="location" placeholder="장소를 입력하세요">
+                </div>
+
+                <!-- 신청문의 -->
+                <div class="form-group">
+                    <label for="contact">신청문의</label>
+                    <input type="tel" id="contact" placeholder="전화번호를 입력하세요">
+                </div>
+
+                <!-- 운영기관 -->
+                <div class="form-group">
+                    <label for="organization">운영기관</label>
+                    <input type="text" id="organization" placeholder="운영기관을 입력하세요">
+                </div>
+
+                <!-- 내용 -->
+                <div class="form-group">
+                    <label for="content">내용</label>
+                    <textarea id="content" rows="5" placeholder="내용을 입력하세요"></textarea>
+                </div>
+
+                <div class="form-group">    
+                    <button class="submit-button" onclick="location.href='.html'" style="margin-top: 10px;">등록하기</button>
                 </div>
             </div>
-            <table id="calendar">
-                <thead>
-                    <tr>
-                        <th>일</th>
-                        <th>월</th>
-                        <th>화</th>
-                        <th>수</th>
-                        <th>목</th>
-                        <th>금</th>
-                        <th>토</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- 동적으로 추가됩니다 -->
-                </tbody>
-            </table>
         </div>
     </div>
 
     <script>
-        let isSelecting = false;
-        let startCell = null;
-        let endCell = null;
-        const calendarBody = document.querySelector('#calendar tbody');
-        const monthYearDisplay = document.getElementById('monthYear');
-        let currentDate = new Date();
-
-        function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            monthYearDisplay.textContent = `${year}년 ${month + 1}월`;
-            calendarBody.innerHTML = '';
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            let row = document.createElement('tr');
-            for (let i = 0; i < firstDay; i++) {
-                row.appendChild(document.createElement('td'));
+        const startDateInput = document.getElementById('start-date');
+        const endDateInput = document.getElementById('end-date');
+    
+        endDateInput.addEventListener('change', function () {
+            if (startDateInput.value && endDateInput.value && startDateInput.value > endDateInput.value) {
+                alert('종료 날짜는 시작 날짜보다 이전일 수 없습니다.');
+                endDateInput.value = '';
             }
-
-            for (let day = 1; day <= daysInMonth; day++) {
-                const cell = document.createElement('td');
-                cell.textContent = day;
-
-                cell.addEventListener('mousedown', () => {
-                    isSelecting = true;
-                    startCell = cell;
-                    highlightRange();
-                });
-
-                cell.addEventListener('mouseover', () => {
-                    if (isSelecting) {
-                        endCell = cell;
-                        highlightRange();
-                    }
-                });
-
-                cell.addEventListener('mouseup', () => {
-                    isSelecting = false;
-                });
-
-                row.appendChild(cell);
-
-                if (row.children.length === 7) {
-                    calendarBody.appendChild(row);
-                    row = document.createElement('tr');
-                }
-            }
-
-            if (row.children.length > 0) {
-                calendarBody.appendChild(row);
-            }
-        }
-
-        function highlightRange() {
-            const cells = Array.from(calendarBody.querySelectorAll('td'));
-            const startIndex = cells.indexOf(startCell);
-            const endIndex = cells.indexOf(endCell);
-
-            if (startCell === endCell) {
-                startCell.classList.toggle('selected');
-                return;
-            }
-
-            cells.forEach((cell, index) => {
-                if (startIndex <= endIndex && index >= startIndex && index <= endIndex) {
-                    cell.classList.add('selected');
-                } else if (startIndex > endIndex && index >= endIndex && index <= startIndex) {
-                    cell.classList.add('selected');
-                } else {
-                    cell.classList.remove('selected');
-                }
-            });
-        }
-
-        function changeMonth(direction) {
-            currentDate.setMonth(currentDate.getMonth() + direction);
-            renderCalendar();
-        }
-
-        function openModal() {
-            document.getElementById("myModal").style.display = "block";
-        }
-
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-        }
-
-        renderCalendar();
+        });
     </script>
+    
 
     <footer>
         <p>
